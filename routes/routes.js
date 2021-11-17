@@ -1,8 +1,6 @@
 const {MongoClient, ObjectId} = require("mongodb");
 
-const url = 'mongodb+srv://bestTeam:bestTeamPass@cluster0.gduyu.mongodb.net/myData?retryWrites=true&w=majority';
-//const url = 'mongodb+srv://jojohnson:republic1776@cluster0.4tguq.mongodb.net/myData?retryWrites=true&w=majority';
-// const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://teammates:hello@cluster0.4tguq.mongodb.net/DataExpress?retryWrites=true&w=majority';
 const client = new MongoClient(url);
 
 const dbName = 'myData';
