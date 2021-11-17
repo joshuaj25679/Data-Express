@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+    form(id='form' method='Post' action='/create')
+        label(for='name') Name: 
+        input(type='text' name='name')
+        br
+        label(for='age') Age: 
+        input(type='text' name='age')
+        br
+        label(for='image') Image URL: 
+        input(type='text' name='image')
+        br
+        label(for='species') Species: 
+        select(name='species')
+            option(value='Human') Human
+            option(value='Vampire') Vampire
+            option(value='Werewolf') Werewolf
+            option(value='Zombie') Zombie
+        br
+        input(type='submit' value='Add Person')

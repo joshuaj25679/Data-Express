@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+    p
+        img(width = 400 src=person.image)
+    p Name: #{person.name}
+    p Age: #{person.age}
+    p Species: #{person.species}
+    br
+    p 
+        a(href='/') Go Back
