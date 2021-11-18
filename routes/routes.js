@@ -38,10 +38,13 @@ exports.create = (req, res) => {
 exports.createPerson = async (req, res) => {
     await client.connect();
     let person = {
-        name: req.body.name,
+        username: req.body.username,
+        password: makeHash(req.body.password),
+        email: req.body.email,
         age: req.body.age,
-        password: makeHash(req.body.password)
-
+        question1: req.body.answer1,
+        question2: req.body.answer2,
+        question3: req.body.answer3
     };
     const insertResult = await collection.insertOne(person);
     client.close();
@@ -64,10 +67,13 @@ exports.editPerson = async (req, res) =>{
     const updateResult = await collection.updateOne(
         {_id:ObjectId(req.params.id)},
         {$set: {
-            name: req.body.name,
+            username: req.body.username,
+            password: makeHash(req.body.password),
+            email: req.body.email,
             age: req.body.age,
-            species: req.body.species,
-            image: req.body.image
+            question1: req.body.answer1,
+            question2: req.body.answer2,
+            question3: req.body.answer3
         }}
     );
     client.close();
