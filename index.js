@@ -2,7 +2,8 @@ const { urlencoded } = require('express');
 const express = require('express'), 
     pug = require('pug'),
     path = require('path'),
-    routes = require('./routes/routes.js');
+    routes = require('./routes/routes.js'),
+    bcrypt = reqire('bcryptjs');
 
 const app = express();
 

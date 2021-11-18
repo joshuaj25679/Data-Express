@@ -7,6 +7,17 @@ const dbName = 'DataExpress';
 const db = client.db(dbName);
 const collection = db.collection('People');
 
+const makeHash = the_str => {
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(the_str, salt, (err, my_hash) => {
+            console.log('\nAsynchronous')
+            console.log(salt);
+            console.log(my_hash);
+            hashComplete(my_hash);
+        })
+    });
+};
+
 exports.index = async (req, res) => {
     await client.connect();
     const findResult = await collection.find({}).toArray();
@@ -29,8 +40,8 @@ exports.createPerson = async (req, res) => {
     let person = {
         name: req.body.name,
         age: req.body.age,
-        species: req.body.species,
-        image: req.body.image
+        password: makeHash(req.body.password)
+
     };
     const insertResult = await collection.insertOne(person);
     client.close();
