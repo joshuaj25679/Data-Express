@@ -1,4 +1,5 @@
-const {MongoClient, ObjectId} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb"),
+    bcrypt = require('bcryptjs');
 
 const url = 'mongodb+srv://teammates:hello@cluster0.4tguq.mongodb.net/DataExpress?retryWrites=true&w=majority';
 const client = new MongoClient(url);
@@ -13,7 +14,6 @@ const makeHash = the_str => {
             console.log('\nAsynchronous')
             console.log(salt);
             console.log(my_hash);
-            hashComplete(my_hash);
         })
     });
 };

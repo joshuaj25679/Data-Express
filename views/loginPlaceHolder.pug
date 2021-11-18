@@ -1,14 +1,12 @@
-doctype 
-html
-    head 
+extends layout
 
-    body 
-        form(method='post' action="/")
-            p Username(user):
-                br
-                input(type="text" name='username') 
-            p Password(pass):
-                br
-                input(type="text" name='password')
-            p 
-                input(type="submit", value="Log in")
+block content
+    form(method='post' action="/")
+        p Username(user):
+            br
+            input(type="text" name='username') 
+        p Password(pass):
+            br
+            input(type="text" name='password')
+        p 
+            input(type="submit", value="Log in")

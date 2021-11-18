@@ -3,7 +3,7 @@ const express = require('express'),
     pug = require('pug'),
     path = require('path'),
     routes = require('./routes/routes.js'),
-    expressSession = require('express-session'); 
+    expressSession = require('express-session'), 
     cookieParser = require('cookie-parser');
 
 const app = express();
@@ -54,7 +54,7 @@ app.get('/create', routes.create);
 app.post('/create', checkAuth, urlencodedParser, routes.createPerson);
 app.get('/edit/:id', checkAuth, routes.edit);
 app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
-app.get('/delete/:id', checkAuth, routes.delete);
-app.get('/details/:id', checkAuth, routes.details);
+//app.get('/delete/:id', checkAuth, routes.delete);
+//app.get('/details/:id', checkAuth, routes.details);
 
 app.listen(3000);
