@@ -35,7 +35,7 @@ exports.createPerson = async (req, res) => {
     const insertResult = await collection.insertOne(person);
     client.close();
     console.log(req.body.name + ' added');
-    res.redirect('/');
+    res.redirect('/loggedIn');
 }
 
 exports.edit = async (req, res) =>{
@@ -60,14 +60,14 @@ exports.editPerson = async (req, res) =>{
         }}
     );
     client.close();
-    res.redirect('/');
+    res.redirect('/loggedIn');
 };
 
 exports.delete = async (req, res) =>{
     await client.connect();
     const deleteResult = await collection.deleteOne({_id: ObjectId(req.params.id)});
     client.close();
-    res.redirect('/');
+    res.redirect('/loggedIn');
 }
 
 exports.details = async (req, res) =>{
