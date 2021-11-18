@@ -20,7 +20,7 @@ app.get('/create', routes.create);
 app.post('/create', urlencodedParser, routes.createPerson);
 app.get('/edit/:id', routes.edit);
 app.post('/edit/:id', urlencodedParser, routes.editPerson);
-app.get('/delete/:id', routes.delete);
-app.get('/details/:id', routes.details);
+//app.get('/delete/:id', routes.delete);
+//app.get('/details/:id', routes.details);
 
 app.listen(3000);

@@ -18,6 +18,8 @@ const makeHash = the_str => {
     });
 };
 
+//Default Page
+//TODO Make This the Login Page
 exports.index = async (req, res) => {
     await client.connect();
     const findResult = await collection.find({}).toArray();
@@ -31,7 +33,7 @@ exports.index = async (req, res) => {
 
 exports.create = (req, res) => {
     res.render('create', {
-        title: 'Add Person'
+        title: 'Registration'
     });
 }
 
@@ -52,12 +54,13 @@ exports.createPerson = async (req, res) => {
     res.redirect('/');
 }
 
+//Main Page for User
 exports.edit = async (req, res) =>{
     await client.connect();
     const filterDocs = await collection.find(ObjectId(req.params.id)).toArray();
     client.close();
     res.render('edit', {
-        title:'Edit Person',
+        title:'Edit Profile',
         person: filterDocs[0]
     });
 };
