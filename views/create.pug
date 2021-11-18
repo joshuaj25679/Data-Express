@@ -2,20 +2,49 @@ extends layout
 
 block content 
     form(id='form' method='Post' action='/create')
-        label(for='name') Name: 
-        input(type='text' name='name')
+        label(for='userName') Username: 
+        input(type='text' name='userName')
         br
-        label(for='age') Age: 
+        label(for='passWord') Password: 
+        input(type='text' name='password')
+        br
+        label(for='email') Email: 
+        input(type='text' name='email')
+        br
+        label(for='age') Age:
         input(type='text' name='age')
         br
-        label(for='image') Image URL: 
-        input(type='text' name='image')
+        label(for='q1') Are uncrustables a calzone or ravioli? 
         br
-        label(for='species') Species: 
-        select(name='species')
-            option(value='Human') Human
-            option(value='Vampire') Vampire
-            option(value='Werewolf') Werewolf
-            option(value='Zombie') Zombie
+        input(type="radio", name="q1Answers", value="Calzone")
+        | Calzone
+        input(type="radio", name="q1Answers", value='Ravioli')
+        | Ravioli
         br
-        input(type='submit' value='Add Person')
+        label(for='q2') Who should narrate your life? 
+        br
+        input(type="radio", name="q2Answers", value="Morgan Freeman")
+        | Morgan Freeman
+        input(type="radio", name="q2Answers", value='James Earl Jones')
+        | James Earl Jones
+        input(type="radio", name="q2Answers", value='Jim Carrey')
+        | Jim Carrey
+        input(type="radio", name="q2Answers", value='Ryan Reynolds')
+        | Ryan Reynolds
+        br
+        label(for='q3') Which superpower would you most want to have?
+        br
+        input(type="radio", name="q3Answers", value='Super Speed')
+        | Super Speed 
+        input(type="radio", name="q3Answers", value='Flight')
+        | Flight 
+        input(type="radio", name="q3Answers", value='Super Strength')
+        | Super Strength
+        input(type="radio", name="q3Answers", value='Telekinesis')
+        | Telekinesis
+
+
+        
+
+        br
+        input(type='submit' value='Register')
