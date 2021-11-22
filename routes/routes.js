@@ -8,15 +8,7 @@ const dbName = 'DataExpress';
 const db = client.db(dbName);
 const collection = db.collection('People');
 
-const makeHash = the_str => {
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(the_str, salt, (err, my_hash) => {
-            console.log('\nAsynchronous')
-            console.log(salt);
-            console.log(my_hash);
-        })
-    });
-};
+let salt = bcrypt.genSaltSync(10);
 
 //Default Page
 //TODO Make This the Login Page
@@ -51,7 +43,7 @@ exports.createPerson = async (req, res) => {
         res.redirect('/create');
     }
     let username = req.body.username;
-    password = makeHash(req.body.password);
+    password = bcrypt.hashSync(req.body.password, salt);
     let age = req.body.age;
     let email = req.body.email;
 
