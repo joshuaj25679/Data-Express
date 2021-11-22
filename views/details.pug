@@ -1,6 +1,8 @@
 extends layout 
 
 block content 
+    form(action="/logout", method="get") 
+        input(type="submit" value='Logout')
     p
         img(width = 400 src=person.image)
     p Name: #{person.name}

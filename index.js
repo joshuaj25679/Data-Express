@@ -42,7 +42,7 @@ app.post('/', urlencodedParser, (req, res) => {
             username: req.body.username
         }
         //res.cookie('Login', req.session.user, {maxAge: 999999999999999999999999});
-        res.redirect('/loggedIn');
+        res.redirect('/details/req.body.username');
     }
     else {
         res.redirect('/');
@@ -55,6 +55,17 @@ app.post('/create', checkAuth, urlencodedParser, routes.createPerson);
 app.get('/edit/:id', checkAuth, routes.edit);
 app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
 app.get('/delete/:id', checkAuth, routes.delete);
-app.get('/details/:id', checkAuth, routes.details);
+app.get('/details/:username', checkAuth, routes.details);
+
+app.get('/logout', checkAuth, (req, res) => {
+    req.session.destroy(err => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.redirect('/');
+        }
+    });
+});
 
 app.listen(3000);

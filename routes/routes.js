@@ -1,4 +1,5 @@
-const {MongoClient, ObjectId} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb"),
+    bcrypt = require('bcryptjs');
 
 const url = 'mongodb+srv://teammates:hello@cluster0.4tguq.mongodb.net/DataExpress?retryWrites=true&w=majority';
 const client = new MongoClient(url);
@@ -7,16 +8,7 @@ const dbName = 'DataExpress';
 const db = client.db(dbName);
 const collection = db.collection('People');
 
-const makeHash = the_str => {
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(the_str, salt, (err, my_hash) => {
-            console.log('\nAsynchronous')
-            console.log(salt);
-            console.log(my_hash);
-            hashComplete(my_hash);
-        })
-    });
-};
+let salt = bcrypt.genSaltSync(10);
 
 //Default Page
 //TODO Make This the Login Page
@@ -29,6 +21,7 @@ exports.index = async (req, res) => {
         title: 'People List',
         people: findResult
     })
+    
 }
 
 exports.create = (req, res) => {
@@ -38,15 +31,35 @@ exports.create = (req, res) => {
 }
 
 exports.createPerson = async (req, res) => {
+    let ans1 = req.body.q1Answers;
+    let ans2 = req.body.q2Answers;
+    let ans3 = req.body.q3Answers;
+
+    if(ans1 == undefined || ans2 == undefined || ans3 == undefined){
+        res.redirect('/create');
+    }
+    let password = req.body.password;
+    if(password == ''){
+        res.redirect('/create');
+    }
+    let username = req.body.username;
+    password = bcrypt.hashSync(req.body.password, salt);
+    let age = req.body.age;
+    let email = req.body.email;
+
+    if(username == '' || age == '' || email == ''){
+        res.redirect('/create');
+    }
+
     await client.connect();
     let person = {
-        username: req.body.username,
-        password: makeHash(req.body.password),
-        email: req.body.email,
-        age: req.body.age,
-        question1: req.body.answer1,
-        question2: req.body.answer2,
-        question3: req.body.answer3
+        username,
+        password, //salt and hash this
+        email,
+        age,
+        question1: ans1,
+        question2: ans2,
+        question3: ans3
     };
     const insertResult = await collection.insertOne(person);
     client.close();
@@ -66,6 +79,7 @@ exports.edit = async (req, res) =>{
 };
 
 exports.editPerson = async (req, res) =>{
+
     await client.connect();
     const updateResult = await collection.updateOne(
         {_id:ObjectId(req.params.id)},
@@ -74,9 +88,10 @@ exports.editPerson = async (req, res) =>{
             password: makeHash(req.body.password),
             email: req.body.email,
             age: req.body.age,
-            question1: req.body.answer1,
-            question2: req.body.answer2,
-            question3: req.body.answer3
+            question1: ans1
+            // question2: req.body.answer2,
+            // question3: req.body.answer3
+            
         }}
     );
     client.close();
