@@ -4,7 +4,15 @@ const express = require('express'),
     path = require('path'),
     routes = require('./routes/routes.js'),
     expressSession = require('express-session'), 
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    bcrypt = require('bcryptjs');
+const {MongoClient, ObjectId} = require("mongodb");
+
+const url = 'mongodb+srv://teammates:hello@cluster0.4tguq.mongodb.net/DataExpress?retryWrites=true&w=majority';
+const client = new MongoClient(url);
+const dbName = 'DataExpress';
+const db = client.db(dbName);
+const collection = db.collection('People');
 
 const app = express();
 
@@ -34,9 +42,11 @@ const checkAuth = (req, res, next) => {
 app.get('/', (req, res) => {
     res.render('loginPlaceHolder');
 });
-app.post('/', urlencodedParser, (req, res) => {
+app.post('/', urlencodedParser, async (req, res) => {
     console.log(req.body.username);
-    if(req.body.username == 'user' && req.body.password == 'pass'){
+    //Change user and pass to dynamic db users
+    let user = await collection.findOne({username: req.body.username})
+    if(bcrypt.compareSync(req.body.password, user.password)){
         req.session.user = {
             isAuthenticated: true,
             username: req.body.username
