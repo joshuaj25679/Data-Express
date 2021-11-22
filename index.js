@@ -3,7 +3,7 @@ const express = require('express'),
     pug = require('pug'),
     path = require('path'),
     routes = require('./routes/routes.js'),
-    bcrypt = reqire('bcryptjs');
+    bcrypt = require('bcryptjs');
 
 const app = express();
 
