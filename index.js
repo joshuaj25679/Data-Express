@@ -3,16 +3,8 @@ const express = require('express'),
     pug = require('pug'),
     path = require('path'),
     routes = require('./routes/routes.js'),
-    expressSession = require('express-session'), 
-    cookieParser = require('cookie-parser'),
-    bcrypt = require('bcryptjs');
-const {MongoClient, ObjectId} = require("mongodb");
-
-const url = 'mongodb+srv://teammates:hello@cluster0.4tguq.mongodb.net/DataExpress?retryWrites=true&w=majority';
-const client = new MongoClient(url);
-const dbName = 'DataExpress';
-const db = client.db(dbName);
-const collection = db.collection('People');
+    expressSession = require('express-session'); 
+    cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -42,17 +34,15 @@ const checkAuth = (req, res, next) => {
 app.get('/', (req, res) => {
     res.render('loginPlaceHolder');
 });
-app.post('/', urlencodedParser, async (req, res) => {
+app.post('/', urlencodedParser, (req, res) => {
     console.log(req.body.username);
-    //Change user and pass to dynamic db users
-    let user = await collection.findOne({username: req.body.username})
-    if(bcrypt.compareSync(req.body.password, user.password)){
+    if(req.body.username == 'user' && req.body.password == 'pass'){
         req.session.user = {
             isAuthenticated: true,
             username: req.body.username
         }
         //res.cookie('Login', req.session.user, {maxAge: 999999999999999999999999});
-        res.redirect('/loggedIn');
+        res.redirect('/details/req.body.username');
     }
     else {
         res.redirect('/');
@@ -61,10 +51,21 @@ app.post('/', urlencodedParser, async (req, res) => {
 
 app.get('/loggedIn', routes.index);
 app.get('/create', routes.create);
-app.post('/create', urlencodedParser, routes.createPerson);
+app.post('/create', checkAuth, urlencodedParser, routes.createPerson);
 app.get('/edit/:id', checkAuth, routes.edit);
 app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
-//app.get('/delete/:id', checkAuth, routes.delete);
+app.get('/delete/:id', checkAuth, routes.delete);
 app.get('/details/:username', checkAuth, routes.details);
+
+app.get('/logout', checkAuth, (req, res) => {
+    req.session.destroy(err => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.redirect('/');
+        }
+    });
+});
 
 app.listen(3000);

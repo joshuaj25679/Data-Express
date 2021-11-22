@@ -1,12 +1,13 @@
 extends layout 
 
 block content 
-    p Username: #{person.username}
+    form(action="/logout", method="get") 
+        input(type="submit" value='Logout')
+    p
+        img(width = 400 src=person.image)
+    p Name: #{person.name}
     p Age: #{person.age}
-    p Email: #{person.email}
-    p Are uncrustables a calzone or ravioli? #{person.question1}
-    p Who should narrate your life? #{person.question2}
-    p Which superpower would you most want to have? #{person.question3}
+    p Species: #{person.species}
     br
     p 
         a(href='/loggedIn') Go Back
