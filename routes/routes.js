@@ -34,7 +34,6 @@ exports.createPerson = async (req, res) => {
     let ans1 = req.body.q1Answers;
     let ans2 = req.body.q2Answers;
     let ans3 = req.body.q3Answers;
-
     if(ans1 == undefined || ans2 == undefined || ans3 == undefined){
         res.redirect('/create');
     }
@@ -107,10 +106,10 @@ exports.delete = async (req, res) =>{
 
 exports.details = async (req, res) =>{
     await client.connect();
-    const filteredDocs = await collection.findOne({_id: ObjectId(req.params.id)});
+    const filteredDocs = await collection.findOne({username : req.params.username});
     client.close();
     res.render('details', {
-        title: filteredDocs.name + "'s Details",
+        title: filteredDocs.username + "'s Details",
         person: filteredDocs
     });
 }

@@ -61,10 +61,10 @@ app.post('/', urlencodedParser, async (req, res) => {
 
 app.get('/loggedIn', routes.index);
 app.get('/create', routes.create);
-app.post('/create', checkAuth, urlencodedParser, routes.createPerson);
+app.post('/create', urlencodedParser, routes.createPerson);
 app.get('/edit/:id', checkAuth, routes.edit);
 app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
 //app.get('/delete/:id', checkAuth, routes.delete);
-//app.get('/details/:id', checkAuth, routes.details);
+app.get('/details/:username', checkAuth, routes.details);
 
 app.listen(3000);
