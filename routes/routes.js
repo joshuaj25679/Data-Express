@@ -18,16 +18,20 @@ exports.login = (req, res) => {
 };
 
 //Login Method
-exports.loginUser = (req, res) => {
+exports.loginUser = async (req, res) => {
     console.log(req.body.username);
+    await client.connect();
+    const filteredDocs = await collection.findOne({'username': req.body.username});
+    console.log(filteredDocs);
+    client.close();
     //Change to pull from Database Username
-    if(req.body.username == 'user' && req.body.password == 'pass'){
+    if(req.body.username == filteredDocs.username && bcrypt.compareSync(req.body.password, filteredDocs.password)){
         req.session.user = {
             isAuthenticated: true,
             username: req.body.username
         }
         //res.cookie('Login', req.session.user, {maxAge: 999999999999999999999999});
-        res.redirect('/details/req.body.username');
+        res.redirect('/details/' + req.body.username);
     }
     else {
         res.redirect('/');
@@ -88,16 +92,18 @@ exports.createPerson = async (req, res) => {
         question2: ans2,
         question3: ans3
     };
+    console.log(person);
     const insertResult = await collection.insertOne(person);
     client.close();
     console.log(req.body.name + ' added');
     //Redirect to Details Page after Registration
-    res.redirect('/loggedIn');
+    res.redirect('/');
 }
 
 //User Edit Page
 exports.edit = async (req, res) =>{
     await client.connect();
+    //TODO Change to take in username
     const filterDocs = await collection.find(ObjectId(req.params.id)).toArray();
     client.close();
     res.render('edit', {
