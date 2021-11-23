@@ -10,5 +10,7 @@ block content
     p Who should narrate your life? #{person.question2}
     p Which superpower would you most want to have? #{person.question3}
     br
+    p Time From Last Login: #{niceTime}
+    br
     form(action=`/edit/${person.username}`, method='get')
         input(type="submit", value="Edit Details")

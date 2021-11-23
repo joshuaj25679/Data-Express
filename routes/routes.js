@@ -30,8 +30,29 @@ exports.loginUser = async (req, res) => {
             isAuthenticated: true,
             username: req.body.username
         }
-        //res.cookie('Login', req.session.user, {maxAge: 999999999999999999999999});
-        res.redirect('/details/' + req.body.username);
+        //if they have been to the site before it will do this
+        if(req.cookies.beenToSiteBefore == 'yes'){
+            //nice format for time
+            s = (Date.now() - req.cookies.LastVisited)
+            var ms = s % 1000;
+            s = (s - ms) / 1000;
+            var secs = s % 60;
+            s = (s - secs) / 60;
+            var mins = s % 60;
+            var hrs = (s - mins) / 60;
+            niceTime = hrs + ':' + mins + ':' + secs + '.' + ms;
+
+            //rewrites the last visited cookie to have this as the new last visited time
+            res.cookie('LastVisited', Date.now(), {maxAge: 9999999999999999999})
+        }
+        //if its the first time visiting it will make these cookies
+        else{
+            res.cookie('beenToSiteBefore', 'yes', {maxAge: 9999999999999999999});
+            res.cookie('LastVisited', Date.now(), {maxAge: 9999999999999999999});
+        }
+        res.render('details', {
+            lastVisit: niceTime
+        })
     }
     else {
         res.redirect('/');
@@ -159,7 +180,7 @@ exports.details = async (req, res) =>{
     const filteredDocs = await collection.findOne({'username' : req.session.user.username});
     client.close();
     res.render('details', {
-        title: filteredDocs.username + "'s Details",
+        title: "'s Details",
         person: filteredDocs
     });
 }
