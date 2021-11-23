@@ -36,8 +36,8 @@ app.post('/', urlencodedParser, routes.loginUser);
 app.get('/loggedIn', routes.details);
 app.get('/create', routes.create);
 app.post('/create', urlencodedParser, routes.createPerson);
-app.get('/edit/:id', checkAuth, routes.edit);
-app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
+app.get('/edit/:username', checkAuth, routes.edit);
+app.post('/edit/:username', checkAuth, urlencodedParser, routes.editPerson);
 app.get('/details/:username', checkAuth, routes.details);
 app.get('/logout', checkAuth, routes.logout);
 
