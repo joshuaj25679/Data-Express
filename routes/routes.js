@@ -79,17 +79,36 @@ exports.edit = async (req, res) =>{
 
 exports.editPerson = async (req, res) =>{
 
+    let ans1 = req.body.quest1;
+    let ans2 = req.body.quest2;
+    let ans3 = req.body.quest3;
+    if(ans1 == undefined || ans2 == undefined || ans3 == undefined){
+        res.redirect('/edit/' + req.session.user.username);
+    }
+    let password = req.body.password;
+    if(password == ''){
+        res.redirect('/edit/' + req.session.user.username);
+    }
+    let username = req.body.username;
+    password = bcrypt.hashSync(req.body.password, salt);
+    let age = req.body.age;
+    let email = req.body.email;
+
+    if(username == '' || age == '' || email == ''){
+        res.redirect('/edit/' + req.session.user.username);
+    }
+
     await client.connect();
     const updateResult = await collection.updateOne(
-        {_id:ObjectId(req.params.id)},
+        {'username':req.session.user.username},
         {$set: {
-            username: req.body.username,
-            password: makeHash(req.body.password),
-            email: req.body.email,
-            age: req.body.age,
-            question1: ans1
-            // question2: req.body.answer2,
-            // question3: req.body.answer3
+            username,
+            password,
+            email,
+            age,
+            question1: ans1,
+            question2: ans2,
+            question3: ans3
             
         }}
     );
@@ -106,7 +125,7 @@ exports.delete = async (req, res) =>{
 
 exports.details = async (req, res) =>{
     await client.connect();
-    const filteredDocs = await collection.findOne({username : req.params.username});
+    const filteredDocs = await collection.findOne({'username' : req.params.username});
     client.close();
     res.render('details', {
         title: filteredDocs.username + "'s Details",

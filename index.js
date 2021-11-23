@@ -52,8 +52,8 @@ app.post('/', urlencodedParser, (req, res) => {
 app.get('/loggedIn', routes.index);
 app.get('/create', routes.create);
 app.post('/create', checkAuth, urlencodedParser, routes.createPerson);
-app.get('/edit/:id', checkAuth, routes.edit);
-app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
+app.get('/edit/:username', checkAuth, routes.edit);
+app.post('/edit/:username', checkAuth, urlencodedParser, routes.editPerson);
 app.get('/delete/:id', checkAuth, routes.delete);
 app.get('/details/:username', checkAuth, routes.details);
 
