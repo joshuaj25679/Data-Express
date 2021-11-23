@@ -10,27 +10,53 @@ const collection = db.collection('People');
 
 let salt = bcrypt.genSaltSync(10);
 
-//Default Page
-//TODO Make This the Login Page
-exports.index = async (req, res) => {
-    await client.connect();
-    const findResult = await collection.find({}).toArray();
-    console.log("Found Documents => ", findResult);
-    client.close();
-    res.render('index', {
-        title: 'People List',
-        people: findResult
-    })
-    
+//Login Page Loader
+exports.login = (req, res) => {
+    res.render('loginPlaceHolder', {
+        title: 'Login'
+    });
+};
+
+//Login Method
+exports.loginUser = (req, res) => {
+    console.log(req.body.username);
+    //Change to pull from Database Username
+    if(req.body.username == 'user' && req.body.password == 'pass'){
+        req.session.user = {
+            isAuthenticated: true,
+            username: req.body.username
+        }
+        //res.cookie('Login', req.session.user, {maxAge: 999999999999999999999999});
+        res.redirect('/details/req.body.username');
+    }
+    else {
+        res.redirect('/');
+    };
+};
+
+//Logout Method
+exports.logout = (req, res) => {
+    req.session.destroy(err => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            //Redirect to Login Page
+            res.redirect('/');
+        }
+    });
 }
 
+//Registration Page
 exports.create = (req, res) => {
     res.render('create', {
         title: 'Registration'
     });
 }
 
+//Registration Method
 exports.createPerson = async (req, res) => {
+    //Get Registration Data
     let ans1 = req.body.q1Answers;
     let ans2 = req.body.q2Answers;
     let ans3 = req.body.q3Answers;
@@ -46,10 +72,12 @@ exports.createPerson = async (req, res) => {
     let age = req.body.age;
     let email = req.body.email;
 
+    //If Registration Fields are blank, redirect back to registration page
     if(username == '' || age == '' || email == ''){
         res.redirect('/create');
     }
 
+    //Add Person to Database
     await client.connect();
     let person = {
         username,
@@ -63,10 +91,11 @@ exports.createPerson = async (req, res) => {
     const insertResult = await collection.insertOne(person);
     client.close();
     console.log(req.body.name + ' added');
+    //Redirect to Details Page after Registration
     res.redirect('/loggedIn');
 }
 
-//Main Page for User
+//User Edit Page
 exports.edit = async (req, res) =>{
     await client.connect();
     const filterDocs = await collection.find(ObjectId(req.params.id)).toArray();
@@ -77,6 +106,7 @@ exports.edit = async (req, res) =>{
     });
 };
 
+//Allow User to edit their details
 exports.editPerson = async (req, res) =>{
 
     await client.connect();
@@ -97,13 +127,7 @@ exports.editPerson = async (req, res) =>{
     res.redirect('/loggedIn');
 };
 
-exports.delete = async (req, res) =>{
-    await client.connect();
-    const deleteResult = await collection.deleteOne({_id: ObjectId(req.params.id)});
-    client.close();
-    res.redirect('/loggedIn');
-}
-
+//Display User Details
 exports.details = async (req, res) =>{
     await client.connect();
     const filteredDocs = await collection.findOne({username : req.params.username});

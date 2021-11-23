@@ -31,41 +31,15 @@ const checkAuth = (req, res, next) => {
     }
 }
 
-app.get('/', (req, res) => {
-    res.render('loginPlaceHolder');
-});
-app.post('/', urlencodedParser, (req, res) => {
-    console.log(req.body.username);
-    if(req.body.username == 'user' && req.body.password == 'pass'){
-        req.session.user = {
-            isAuthenticated: true,
-            username: req.body.username
-        }
-        //res.cookie('Login', req.session.user, {maxAge: 999999999999999999999999});
-        res.redirect('/details/req.body.username');
-    }
-    else {
-        res.redirect('/');
-    }
-});
-
-app.get('/loggedIn', routes.index);
+app.get('/', routes.login);
+app.post('/', urlencodedParser, routes.loginUser);
+app.get('/loggedIn', routes.details);
 app.get('/create', routes.create);
 app.post('/create', checkAuth, urlencodedParser, routes.createPerson);
 app.get('/edit/:id', checkAuth, routes.edit);
 app.post('/edit/:id', checkAuth, urlencodedParser, routes.editPerson);
-app.get('/delete/:id', checkAuth, routes.delete);
 app.get('/details/:username', checkAuth, routes.details);
+app.get('/logout', checkAuth, routes.logout);
 
-app.get('/logout', checkAuth, (req, res) => {
-    req.session.destroy(err => {
-        if(err){
-            console.log(err);
-        }
-        else {
-            res.redirect('/');
-        }
-    });
-});
 
 app.listen(3000);
