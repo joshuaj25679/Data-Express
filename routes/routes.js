@@ -51,8 +51,9 @@ exports.loginUser = async (req, res) => {
             res.cookie('LastVisited', Date.now(), {maxAge: 9999999999999999999});
             niceTime = "First Time Here!"
         }
-        res.render('details', {
-            lastVisit: niceTime
+        res.render(`details`, {
+            lastVisit: niceTime,
+            person: filteredDocs
         })
     }
     else {
