@@ -3,11 +3,12 @@ extends layout
 block content 
     form(action="/logout", method="get") 
         input(type="submit" value='Logout')
-    p
-        img(width = 400 src=person.image)
-    p Name: #{person.name}
-    p Age: #{person.age}
-    p Species: #{person.species}
+    //- p
+        //- img(width = 400 src=person.image)
+    //- p Name: #{person.name}
+    //- p Age: #{person.age}
+    //- p Species: #{person.species}
+    p Time From Last Login: #{niceTime}
     br
     p 
         a(href='/loggedIn') Go Back
