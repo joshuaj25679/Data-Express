@@ -49,6 +49,7 @@ exports.loginUser = async (req, res) => {
         else{
             res.cookie('beenToSiteBefore', 'yes', {maxAge: 9999999999999999999});
             res.cookie('LastVisited', Date.now(), {maxAge: 9999999999999999999});
+            niceTime = "First Time Here!"
         }
         res.render('details', {
             lastVisit: niceTime
