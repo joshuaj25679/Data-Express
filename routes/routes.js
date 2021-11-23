@@ -104,7 +104,7 @@ exports.createPerson = async (req, res) => {
 exports.edit = async (req, res) =>{
     await client.connect();
     //TODO Change to take in username
-    const filterDocs = await collection.find(ObjectId(req.params.id)).toArray();
+    const filterDocs = await collection.find({'username':req.params.username}).toArray();
     client.close();
     res.render('edit', {
         title:'Edit Profile',
@@ -115,9 +115,10 @@ exports.edit = async (req, res) =>{
 //Allow User to edit their details
 exports.editPerson = async (req, res) =>{
 
-    let ans1 = req.body.quest1;
-    let ans2 = req.body.quest2;
-    let ans3 = req.body.quest3;
+    let ans1 = req.body.ans1;
+    let ans2 = req.body.ans2;
+    let ans3 = req.body.ans3;
+    console.log(ans1, ans2, ans3);
     if(ans1 == undefined || ans2 == undefined || ans3 == undefined){
         res.redirect('/edit/' + req.session.user.username);
     }
@@ -155,7 +156,7 @@ exports.editPerson = async (req, res) =>{
 //Display User Details
 exports.details = async (req, res) =>{
     await client.connect();
-    const filteredDocs = await collection.findOne({'username' : req.params.username});
+    const filteredDocs = await collection.findOne({'username' : req.session.user.username});
     client.close();
     res.render('details', {
         title: filteredDocs.username + "'s Details",

@@ -6,10 +6,7 @@ block content
         input(type='text' name='username' value=person.username)
         br
         label(for='password') Password:
-        input(type='text' name='password' value=person.password)
-        br
-        label(for='name') Name: 
-        input(type='text' name='name' value=person.name)
+        input(type='text' name='password')
         br
         label(for='age') Age: 
         input(type='text' name='age' value=person.age)
@@ -32,7 +29,7 @@ block content
             option(value='Ryan Reynolds') Ryan Reynolds
         br
         label(for='quest3') Which superpower would you most want to have?
-        select(name='ans2')
+        select(name='ans3')
             option(selected=person.question3) #{person.question3}
             option(value='Super Speed') Super Speed 
             option(value='Flight') Flight 
@@ -40,3 +37,7 @@ block content
             option(value='Telekinesis') Telikinesis
         br
         input(type='submit' value='Update Person')
+    br
+    br
+    form(action=`/details/${person.username}`, method='get')
+        input(type="submit", value="Back")
