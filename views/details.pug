@@ -11,6 +11,6 @@ block content
     p Time From Last Login: #{niceTime}
     br
     form(action="/logout", method="get") 
-        input(type="submit" value='Logout')
+        input(type="submit" value='Logout' class='button')
     form(action=`/edit/${person.username}`, method='get')
-        input(type="submit", value="Edit Details")
+        input(type="submit", value="Edit Details" class='button')

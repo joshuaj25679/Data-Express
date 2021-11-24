@@ -4,6 +4,7 @@ block content
     form(method='post' action="/")
         p Username:
             br
+<<<<<<< Updated upstream
             input(type="text" name='username') 
         p Password:
             br
@@ -13,3 +14,13 @@ block content
         div #{errorMessage}
     form(method='GET' action="/create")
         input(type='submit', value='Registration')
+=======
+            input(type="text" name='username', class='textInput') 
+        p Password(pass):
+            br
+            input(type="text" name='password' class='textInput')
+        p 
+            input(type="submit", value="Log in" class='button')
+    form(method='GET' action="/create" id='registrationContainer' class='container')
+        input(type='submit', value='Registration', id='registrationButton' class='containerItem1 button' )
+>>>>>>> Stashed changes

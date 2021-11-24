@@ -3,11 +3,37 @@ html{
     font-family: 'Qahiri', sans-serif;
 }
 
-#PageTitle{
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+/* #container, #registrationContainer{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+} */
+
+/* #PageTitle, #registrationButton{
+    flex:1;
+    
+} */
+
+.container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
+
+.containerItem1{
+    /* margin-left: auto;
+    margin-right: auto;
+    width: 50%; */
+    flex:1;
+    
+}
+
+#registrationButton{
+    width: 200px;
+    text-align: center;
+    margin: 0px auto;
+}
+
 
 body{
     font-size: 14px;
@@ -31,7 +57,7 @@ p{
 
 form{
     text-align: center;
-    cursor: pointer;
+    /*cursor: pointer;*/
     text-align: center;
     display: inline;
     margin-left: auto;
@@ -44,26 +70,15 @@ input:hover, select:hover{
     background-color: #B9BAA3;
 }
 
-table.gridtable{
-    color: #337;
-    border-width: 1px;
-    border-color: #559;
-    border-collapse: collapse;
+
+
+
+/* .textInout{
+    cursor: text;
+} */
+
+.button{
+    cursor: pointer;
 }
 
-table.gridtable th{
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #559;
-    background-color: #ccf;
-}
-
-table.gridtable td{
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #559;
-    background-color: #fff;
-}
 

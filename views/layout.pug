@@ -1,9 +1,10 @@
 doctype 
 html 
-    head 
+    head
         title=title 
         link(href='/style.css' rel='stylesheet')
     body 
-        h3(id="PageTitle")=title 
+        div(id='container' class='container')
+            h3(id="PageTitle" class='containerItem1')=title 
         block content 
         
