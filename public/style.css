@@ -1,10 +1,47 @@
-body{
-    font-family: verdana, arial, sans-serif;
-    font-size: 12px;
-    width: 80%;
-    padding: 20px;
-    background-color: #eeb;
+html{
+    font-family: 'Inconsolata', monospace;
+    font-family: 'Qahiri', sans-serif;
+}
 
+#PageTitle{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+body{
+    font-size: 14px;
+    width: 50%;
+    padding: 20px;
+    background-color: #902923;
+    color: #D6D5C9;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input, select, option{
+    border: 2px solid #0A100D;
+    color: #0A100D;
+    background-color: #D6D5C9;
+}
+
+p{
+    text-align: center;
+}
+
+form{
+    text-align: center;
+    cursor: pointer;
+    text-align: center;
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 50%;
+}
+
+input:hover, select:hover{
+    background-color: #B9BAA3;
 }
 
 table.gridtable{

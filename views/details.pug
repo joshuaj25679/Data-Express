@@ -1,8 +1,6 @@
 extends layout 
 
 block content 
-    form(action="/logout", method="get") 
-        input(type="submit" value='Logout')
     p Username: #{person.username}
     p Age: #{person.age}
     p Email: #{person.email}
@@ -12,5 +10,7 @@ block content
     br
     p Time From Last Login: #{niceTime}
     br
+    form(action="/logout", method="get") 
+        input(type="submit" value='Logout')
     form(action=`/edit/${person.username}`, method='get')
         input(type="submit", value="Edit Details")

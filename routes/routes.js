@@ -182,7 +182,7 @@ exports.details = async (req, res) =>{
     const filteredDocs = await collection.findOne({'username' : req.session.user.username});
     client.close();
     res.render('details', {
-        title: "'s Details",
+        title: `${filteredDocs.username}'s Details`,
         person: filteredDocs
     });
 }
