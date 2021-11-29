@@ -182,6 +182,12 @@ exports.editPerson = async (req, res) => {
         }
     );
     client.close();
+
+    req.session.user = {
+        isAuthenticated: true,
+        username: username
+    }
+    console.log('the new username is: ' + username)
     res.redirect('/loggedIn');
 };
 
@@ -189,7 +195,7 @@ exports.editPerson = async (req, res) => {
 exports.details = async (req, res) => {
     console.log(req.session.user.username);
     await client.connect();
-    const filteredDocs = await collection.findOne({ 'username': "JoJohnson"});
+    const filteredDocs = await collection.findOne({ 'username': req.session.user.username});
     console.log("Document: " + filteredDocs);
     client.close();
     res.render('details', {
