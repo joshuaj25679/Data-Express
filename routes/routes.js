@@ -187,8 +187,10 @@ exports.editPerson = async (req, res) => {
 
 //Display User Details
 exports.details = async (req, res) => {
+    console.log(req.session.user.username);
     await client.connect();
-    const filteredDocs = await collection.findOne({ 'username': req.session.user.username });
+    const filteredDocs = await collection.findOne({ 'username': "JoJohnson"});
+    console.log("Document: " + filteredDocs);
     client.close();
     res.render('details', {
         title: filteredDocs.username + "'s Details",
