@@ -1,6 +1,6 @@
 html{
-    font-family: 'Inconsolata', monospace;
-    font-family: 'Qahiri', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
 
 /* #container, #registrationContainer{
@@ -13,6 +13,14 @@ html{
     flex:1;
     
 } */
+.radioBtn{
+    margin: 20px;
+    padding: 20px;
+}
+
+.registerForm{
+    padding: 10px;
+}
 
 .container{
     display: flex;

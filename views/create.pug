@@ -1,7 +1,7 @@
 extends layout 
 
 block content 
-        form(id='form' method='Post' action='/create')
+        form(id='form' method='Post' action='/create' class='registerForm')
                 label(for='username') Username: 
                 input(type='text' name='username')
                 br
@@ -16,31 +16,32 @@ block content
                 br
                 label(for='q1') Are uncrustables a calzone or ravioli? 
                 br
-                input(type="radio", name="q1Answers", value="Calzone")
+
+                input(type="radio", name="q1Answers", value="Calzone" class="radioBtn")
                 | Calzone
-                input(type="radio", name="q1Answers", value='Ravioli')
+                input(type="radio", name="q1Answers", value='Ravioli' class="radioBtn")
                 | Ravioli
                 br
                 label(for='q2') Who should narrate your life? 
                 br
-                input(type="radio", name="q2Answers", value="Morgan Freeman")
+                input(type="radio", name="q2Answers", value="Morgan Freeman" class="radioBtn")
                 | Morgan Freeman
-                input(type="radio", name="q2Answers", value='James Earl Jones')
+                input(type="radio", name="q2Answers", value='James Earl Jones' class="radioBtn")
                 | James Earl Jones
-                input(type="radio", name="q2Answers", value='Jim Carrey')
+                input(type="radio", name="q2Answers", value='Jim Carrey' class="radioBtn")
                 | Jim Carrey
-                input(type="radio", name="q2Answers", value='Ryan Reynolds')
+                input(type="radio", name="q2Answers", value='Ryan Reynolds' class="radioBtn")
                 | Ryan Reynolds
                 br
                 label(for='q3') Which superpower would you most want to have?
                 br
-                input(type="radio", name="q3Answers", value='Super Speed')
+                input(type="radio", name="q3Answers", value='Super Speed' class="radioBtn")
                 | Super Speed 
-                input(type="radio", name="q3Answers", value='Flight')
+                input(type="radio", name="q3Answers", value='Flight' class="radioBtn")
                 | Flight 
-                input(type="radio", name="q3Answers", value='Super Strength')
+                input(type="radio", name="q3Answers", value='Super Strength' class="radioBtn")
                 | Super Strength
-                input(type="radio", name="q3Answers", value='Telekinesis')
+                input(type="radio", name="q3Answers", value='Telekinesis' class="radioBtn")
                 | Telekinesis
 
 
