@@ -94,7 +94,7 @@ exports.createPerson = async (req, res) => {
     let ans1 = req.body.q1Answers;
     let ans2 = req.body.q2Answers;
     let ans3 = req.body.q3Answers;
-    if (ans1 == undefined || ans2 == undefined || ans3 == undefined) {
+    if (ans1 == null || ans2 == null || ans3 == null) {
         res.redirect('/create');
     }
     let password = req.body.password;
@@ -144,28 +144,28 @@ exports.edit = async (req, res) => {
 
 //Allow User to edit their details
 exports.editPerson = async (req, res) => {
-
     let ans1 = req.body.ans1;
     let ans2 = req.body.ans2;
     let ans3 = req.body.ans3;
+    await client.connect();
     console.log(ans1, ans2, ans3);
     if (ans1 == undefined || ans2 == undefined || ans3 == undefined) {
         res.redirect('/edit/' + req.session.user.username);
     }
     let password = req.body.password;
     if (password == '') {
+        const filteredDocs = await collection.findOne({ 'username': req.body.username });
         res.redirect('/edit/' + req.session.user.username);
+        password = filteredDocs.password;
+    }else{
+        password = bcrypt.hashSync(req.body.password, salt);
     }
     let username = req.body.username;
-    password = bcrypt.hashSync(req.body.password, salt);
     let age = req.body.age;
     let email = req.body.email;
-
     if (username == '' || age == '' || email == '') {
         res.redirect('/edit/' + req.session.user.username);
     }
-
-    await client.connect();
     const updateResult = await collection.updateOne(
         { 'username': req.session.user.username },
         {
@@ -177,11 +177,10 @@ exports.editPerson = async (req, res) => {
                 question1: ans1,
                 question2: ans2,
                 question3: ans3
-
             }
         }
     );
-    client.close();
+    
 
     req.session.user = {
         isAuthenticated: true,
@@ -189,6 +188,7 @@ exports.editPerson = async (req, res) => {
     }
     console.log('the new username is: ' + username)
     res.redirect('/loggedIn');
+    client.close();
 };
 
 //Display User Details
