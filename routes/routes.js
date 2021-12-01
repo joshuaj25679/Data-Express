@@ -26,11 +26,14 @@ exports.loginUser = async (req, res) => {
     client.close();
     if(filteredDocs != null){
         if (req.body.username == filteredDocs.username && bcrypt.compareSync(req.body.password, filteredDocs.password)) {
+            
+            //makes the session with the account type 
             req.session.user = {
                 isAuthenticated: true,
-                username: req.body.username
+                username: req.body.username,
+                accountType: filteredDocs.accountType
             }
-            //if they have been to the site before it will do this
+
             if (req.cookies.beenToSiteBefore == 'yes') {
                 //nice format for time
                 s = (Date.now() - req.cookies.LastVisited)
@@ -120,7 +123,8 @@ exports.createPerson = async (req, res) => {
         age,
         question1: ans1,
         question2: ans2,
-        question3: ans3
+        question3: ans3,
+        accountType: 'USER'
     };
     console.log(person);
     const insertResult = await collection.insertOne(person);
@@ -166,6 +170,7 @@ exports.editPerson = async (req, res) => {
     if (username == '' || age == '' || email == '') {
         res.redirect('/edit/' + req.session.user.username);
     }
+    const typeDocs = await collection.findOne({ 'username': req.body.username });
     const updateResult = await collection.updateOne(
         { 'username': req.session.user.username },
         {
@@ -176,7 +181,8 @@ exports.editPerson = async (req, res) => {
                 age,
                 question1: ans1,
                 question2: ans2,
-                question3: ans3
+                question3: ans3,
+                accountType: typeDocs.accountType
             }
         }
     );
@@ -184,7 +190,8 @@ exports.editPerson = async (req, res) => {
 
     req.session.user = {
         isAuthenticated: true,
-        username: username
+        username: username,
+        accountType: typeDocs.accountType
     }
     console.log('the new username is: ' + username)
     res.redirect('/loggedIn');
@@ -202,4 +209,14 @@ exports.details = async (req, res) => {
         title: filteredDocs.username + "'s Details",
         person: filteredDocs
     });
+}
+
+exports.admin = (req, res) => {
+    res.render('admin', {
+        title: "ADMIN PAGE IN HERE"
+    })
+}
+
+exports.addAdmin = (req, res) => {
+    
 }

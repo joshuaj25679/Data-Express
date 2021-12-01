@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    p this is the admin page
+    form(id='form' method='Post' action='/addAdmin/')
+        p Username: 
+        input(type="text" name='username', class='textInput') 
+    //- form(method='post' action="/")
+    //-     p Username:
+    //-         br
+    //-         input(type="text" name='username', class='textInput') 
+    //-     p Password:
+    //-         br
+    //-         input(type="password" name='password' class='textInput')
+    //-     p 
+    //-         input(type="submit", value="Log in" class='button')
+    //- form(method='GET' action="/create" id='registrationContainer' class='container')
+    //-     input(type='submit', value='Registration', id='registrationButton' class='containerItem1 button' )
