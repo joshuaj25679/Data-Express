@@ -180,8 +180,6 @@ exports.editPerson = async (req, res) => {
             }
         }
     );
-    
-
     req.session.user = {
         isAuthenticated: true,
         username: username
@@ -202,4 +200,36 @@ exports.details = async (req, res) => {
         title: filteredDocs.username + "'s Details",
         person: filteredDocs
     });
+}
+
+exports.api = async (req, res) => {
+    //Get Data for each question from the DB
+    await client.connect();
+    //Data to be filled
+    const data = [
+        {
+            //Query for Question 1
+            question1:"Are uncrustables a calzone or ravioli?",
+            calzoneAmount: await collection.find({question1:'Calzone'}).count(),
+            ravioliAmount: await collection.find({question1:'Ravioli'}).count()
+        },
+        {
+            //Query for Question 2
+            question2:"Who should narrate your life?",
+            freemanAmount: await collection.find({question2:'Morgan Freeman'}).count(),
+            jonesAmount: await collection.find({question2:'James Earl Jones'}).count(), 
+            carreyAmount: await collection.find({question2:'Jim Carrey'}).count(),
+            reynoldsAmount: await collection.find({question2:'Ryan Reynolds'}).count()
+        },
+        {
+            //Query for Question 3
+            question3:"Which superpower would you most want to have?",
+            speedAmount: await collection.find({question3:'Super Speed'}).count(),
+            flightAmount: await collection.find({question3:'Flight'}).count(), 
+            strengthAmount: await collection.find({question3:'Super Strength'}).count(),
+            telekinesisAmount: await collection.find({question3:'Telekinesis'}).count()
+        }
+    ]
+    client.close();
+    res.json(data);
 }
