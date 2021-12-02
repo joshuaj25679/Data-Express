@@ -89,4 +89,21 @@ input:hover, select:hover{
     cursor: pointer;
 }
 
+#canvCon{
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+    width: max-content;
+}
 
+.canv {
+    background-color: #902923;
+    outline: solid 5px #000;
+    /*flex: 1;*/
+    /* display: inline-block; */
+}
+
+
+canvas{
+    display: inline-block;
+}

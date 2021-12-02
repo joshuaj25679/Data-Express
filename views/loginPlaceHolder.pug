@@ -12,3 +12,8 @@ block content
             input(type="submit", value="Log in" class='button')
     form(method='GET' action="/create" id='registrationContainer' class='container')
         input(type='submit', value='Registration', id='registrationButton' class='containerItem1 button' )
+    div(id='canvCon')
+        canvas(id='q1Canvas' class='canv')
+        canvas(id='q2Canvas' class='canv')
+        canvas(id='q3Canvas' class='canv')
+    script(src="script.js")
