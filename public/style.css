@@ -1,6 +1,8 @@
 html{
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 /* #container, #registrationContainer{
@@ -39,18 +41,19 @@ html{
 #registrationButton{
     width: 200px;
     text-align: center;
-    margin: 0px auto;
+    margin-bottom: 10px;
 }
 
 
 body{
+    margin: 0;
     font-size: 14px;
-    width: 50%;
+    width: 100%;
     padding: 20px;
     background-color: #902923;
     color: #D6D5C9;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
 }
 
 input, select, option{
@@ -59,20 +62,20 @@ input, select, option{
     background-color: #D6D5C9;
 }
 
-p{
+/* p{
     text-align: center;
-}
+} */
 
-form{
+/* form{
     text-align: center;
-    /*cursor: pointer;*/
+    cursor: pointer;
     text-align: center;
     display: inline;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
     width: 50%;
-}
+} */
 
 input:hover, select:hover{
     background-color: #B9BAA3;
@@ -92,17 +95,37 @@ input:hover, select:hover{
 #canvCon{
     /* display: flex;
     flex-direction: row;
-    align-items: center; */
-    width: max-content;
-}
+    align-items: center;
+    width: 100%; */
 
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.maxWidth {
+    width: 100%;
+}
+.maxHeight {
+    height: 100%;
+}
+.horizontal {
+    flex-direction: row;
+}
+.vertical {
+    flex-direction: column;
+}
+.item {
+    margin: 2px;
+    padding: 3px;
+}
 .canv {
     background-color: #902923;
     outline: solid 5px #000;
     /*flex: 1;*/
     /* display: inline-block; */
 }
-
 
 canvas{
     display: inline-block;
