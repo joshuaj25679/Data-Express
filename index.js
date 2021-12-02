@@ -51,7 +51,7 @@ app.post('/edit/:username', checkAuth, urlencodedParser, routes.editPerson);
 app.get('/details/:username', checkAuth, routes.details);
 app.get('/logout', checkAuth, routes.logout);
 app.get('/admin', checkAdminAuth, routes.admin);
-app.post('/addAdmin/:username', checkAdminAuth, urlencodedParser, routes.addAdmin);
+app.post('/addAdmin', checkAdminAuth, urlencodedParser, routes.addAdmin);
 
 
 app.listen(3000);

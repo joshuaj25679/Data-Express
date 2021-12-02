@@ -213,10 +213,30 @@ exports.details = async (req, res) => {
 
 exports.admin = (req, res) => {
     res.render('admin', {
-        title: "ADMIN PAGE IN HERE"
+        title: "ADMIN PAGE"
     })
 }
 
-exports.addAdmin = (req, res) => {
-    
+exports.addAdmin = async (req, res) => {
+    await client.connect();
+    const filteredDocs = await collection.findOne({ 'username': req.body.regularUser});
+
+    const updateResult = await collection.updateOne(
+        { 'username': req.body.regularUser},
+        {
+            $set: {
+                username: filteredDocs.username,
+                password: filteredDocs.password,
+                email: filteredDocs.email,
+                age: filteredDocs.age,
+                question1: filteredDocs.question1,
+                question2: filteredDocs.question2,
+                question3: filteredDocs.question3,
+                accountType: "ADMIN"
+            }
+        }
+    );
+
+    client.close();
+
 }
