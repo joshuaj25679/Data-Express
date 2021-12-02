@@ -2,10 +2,11 @@
 let fetchData = async () =>{
     const response = await fetch('http://localhost:3000/api');
     const data = await response.json();
-    console.log(data);
+    return data;
 }
 
-fetchData();
+
+
 const q1canvas = document.getElementById('q1Canvas');
 const q1ctx = q1canvas.getContext('2d');
 q1canvas.width = 200;
@@ -56,7 +57,15 @@ const labelDraw = () => {
     };
 }
 
+fetchData()
+.then((dbData) => {
+    console.log(dbData[0].calzoneAmount);
 
-drawQ1Res(1,4);
+    let calzone = dbData[0].calzoneAmount;
+    let ravioli = dbData[0].ravioliAmount;
 
-labelDraw();
+    drawQ1Res(calzone, ravioli);
+
+    labelDraw();
+})
+

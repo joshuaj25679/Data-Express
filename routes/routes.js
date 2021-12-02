@@ -232,4 +232,6 @@ exports.api = async (req, res) => {
     ]
     client.close();
     res.json(data);
+    console.log(data[0].calzoneAmount);
+    console.log(data[0].ravioliAmount);
 }
