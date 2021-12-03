@@ -24,33 +24,63 @@ q3canvas.height = 500;
 
 const drawQ1Res = (a1Size, a2Size) => {
 
-    q1ctx.fillStyle = '#FF00FF';
+    q1ctx.fillStyle = '#FF8A8A';
     q1ctx.font = '20px Arial';
     q1ctx.fillText('Calzone', 0, 20);
-    q1ctx.fillStyle = 'blue';
+    q1ctx.fillStyle = '#FF0000';
     q1ctx.font = '20px Arial';
     q1ctx.fillText('Ravioli', 0, 40);
 
-    q1ctx.fillStyle = '#FF00FF';
+    q1ctx.fillStyle = '#FF8A8A';
     q1ctx.fillRect(50, 500, 40, -(a1Size*25));
 
-    q1ctx.fillStyle = 'blue';
+    q1ctx.fillStyle = '#FF0000';
     q1ctx.fillRect(100, 500, 40, -(a2Size*25));
 
 }
 
 const drawQ2Res = (a1Size, a2Size, a3Size, a4Size) => {
-    q2ctx.fillStyle = '#FF00FF';
+    q2ctx.fillStyle = '#FF8A8A';
     q2ctx.fillRect(50, 500, 40, -(a1Size*25));
+    q2ctx.font = '20px Arial';
+    q2ctx.fillText('Morgan Freeman', 0, 20);
 
-    q2ctx.fillStyle = 'blue';
+    q2ctx.fillStyle = '#FF0000';
     q2ctx.fillRect(100, 500, 40, -(a2Size*25));
+    q2ctx.font = '20px Arial';
+    q2ctx.fillText('James Earl Jones', 0, 40);
 
-    q2ctx.fillStyle = '#FF00FF';
+    q2ctx.fillStyle = '#DC143C';
     q2ctx.fillRect(150, 500, 40, -(a3Size*25));
+    q2ctx.font = '20px Arial';
+    q2ctx.fillText('Jim Carrey', 0, 60);
 
-    q2ctx.fillStyle = 'blue';
+    q2ctx.fillStyle = '#D10000';
     q2ctx.fillRect(200, 500, 40, -(a4Size*25));
+    q2ctx.font = '20px Arial';
+    q2ctx.fillText('Ryan Reynolds', 0, 80);
+}
+
+const drawQ3Res = (a1Size, a2Size, a3Size, a4Size) => {
+    q3ctx.fillStyle = '#FF8A8A';
+    q3ctx.fillRect(50, 500, 40, -(a1Size*25));
+    q3ctx.font = '20px Arial';
+    q3ctx.fillText('Super Speed', 0, 20);
+
+    q3ctx.fillStyle = '#FF0000';
+    q3ctx.fillRect(100, 500, 40, -(a2Size*25));
+    q3ctx.font = '20px Arial';
+    q3ctx.fillText('Flight', 0, 40);
+
+    q3ctx.fillStyle = '#DC143C';
+    q3ctx.fillRect(150, 500, 40, -(a3Size*25));
+    q3ctx.font = '20px Arial';
+    q3ctx.fillText('Super Strength', 0, 60);
+
+    q3ctx.fillStyle = '#D10000';
+    q3ctx.fillRect(200, 500, 40, -(a4Size*25));
+    q3ctx.font = '20px Arial';
+    q3ctx.fillText('Telekinesis', 0, 80);
 }
 
 const labelDraw = () => {
@@ -84,4 +114,5 @@ fetchData()
 })
 drawQ1Res(1,4);
 drawQ2Res(2,5,3,8);
+drawQ3Res(3,4,5,6);
 
