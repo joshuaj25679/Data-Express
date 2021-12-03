@@ -110,9 +110,13 @@ fetchData()
 
     drawQ1Res(calzone, ravioli);
 
-    labelDraw();
-})
-drawQ1Res(1,4);
-drawQ2Res(2,5,3,8);
-drawQ3Res(3,4,5,6);
-
+const loop = () =>{
+    drawQ1Res(1,4);
+    drawQ2Res(2,5,3,8);
+    drawQ3Res(3,4,5,6);
+    
+    
+}
+labelDraw();
+loop();
+setInterval(loop, 3000);
