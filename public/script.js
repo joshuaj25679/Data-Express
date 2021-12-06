@@ -101,30 +101,28 @@ const labelDraw = () => {
     };
 }
 
-fetchData()
-.then((dbData) => {
-    console.log(dbData[0].calzoneAmount);
+const loop = () =>{
+    fetchData()
+    .then((dbData) => {
+        let calzone = dbData[0].calzoneAmount;
+        let ravioli = dbData[0].ravioliAmount;
+        
+        let freeman = dbData[1].freemanAmount;
+        let jones = dbData[1].jonesAmount;
+        let carrey = dbData[1].carreyAmount;
+        let reynolds = dbData[1].reynoldsAmount;
 
-    let calzone = dbData[0].calzoneAmount;
-    let ravioli = dbData[0].ravioliAmount;
-    
-    let freeman = dbData[1].freemanAmount;
-    let jones = dbData[1].jonesAmount;
-    let carrey = dbData[1].carreyAmount;
-    let reynolds = dbData[1].reynoldsAmount;
+        let speed = dbData[2].speedAmount;
+        let flight = dbData[2].flightAmount;
+        let strength = dbData[2].strengthAmount;
+        let telekinesis = dbData[2].telekinesisAmount;
+        drawQ1Res(calzone, ravioli);
+        drawQ2Res(freeman, jones, carrey, reynolds);
+        drawQ3Res(speed, flight, strength, telekinesis);
 
-    let speed = dbData[2].speedAmount;
-    let flight = dbData[2].flightAmount;
-    let strength = dbData[2].strengthAmount;
-    let telekinesis = dbData[2].telekinesisAmount;
-
-    const loop = () =>{
-    drawQ1Res(calzone, ravioli);
-    drawQ2Res(freeman, jones, carrey, reynolds);
-    drawQ3Res(speed, flight, strength, telekinesis);
-    }
-
-    labelDraw();
-    loop();
-    setInterval(loop, 3000);
+        labelDraw();
 })
+}
+
+loop();
+setInterval(loop, 3000);
