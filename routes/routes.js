@@ -26,11 +26,14 @@ exports.loginUser = async (req, res) => {
     client.close();
     if(filteredDocs != null){
         if (req.body.username == filteredDocs.username && bcrypt.compareSync(req.body.password, filteredDocs.password)) {
+            
+            //makes the session with the account type 
             req.session.user = {
                 isAuthenticated: true,
-                username: req.body.username
+                username: req.body.username,
+                accountType: filteredDocs.accountType
             }
-            //if they have been to the site before it will do this
+
             if (req.cookies.beenToSiteBefore == 'yes') {
                 //nice format for time
                 s = (Date.now() - req.cookies.LastVisited)
@@ -120,7 +123,8 @@ exports.createPerson = async (req, res) => {
         age,
         question1: ans1,
         question2: ans2,
-        question3: ans3
+        question3: ans3,
+        accountType: 'USER'
     };
     console.log(person);
     const insertResult = await collection.insertOne(person);
@@ -166,6 +170,7 @@ exports.editPerson = async (req, res) => {
     if (username == '' || age == '' || email == '') {
         res.redirect('/edit/' + req.session.user.username);
     }
+    const typeDocs = await collection.findOne({ 'username': req.body.username });
     const updateResult = await collection.updateOne(
         { 'username': req.session.user.username },
         {
@@ -176,13 +181,15 @@ exports.editPerson = async (req, res) => {
                 age,
                 question1: ans1,
                 question2: ans2,
-                question3: ans3
+                question3: ans3,
+                accountType: typeDocs.accountType
             }
         }
     );
     req.session.user = {
         isAuthenticated: true,
-        username: username
+        username: username,
+        accountType: typeDocs.accountType
     }
     console.log('the new username is: ' + username)
     res.redirect('/loggedIn');
@@ -234,4 +241,56 @@ exports.api = async (req, res) => {
     res.json(data);
     console.log(data[0].calzoneAmount);
     console.log(data[0].ravioliAmount);
+//loads in admin page 
+exports.admin = (req, res) => {
+    res.render('admin', {
+        title: "ADMIN PAGE",
+        status: "",
+        admin: req.session.user.username
+    })
+}
+
+//finds the user by username to update to admin
+exports.addAdmin = async (req, res) => {
+    await client.connect();
+    const filteredDocs = await collection.findOne({ 'username': req.body.regularUser});
+
+    //updates the user to set the accountType to ADMIN
+    const updateResult = await collection.updateOne(
+        { 'username': req.body.regularUser},
+        {
+            $set: {
+                username: filteredDocs.username,
+                password: filteredDocs.password,
+                email: filteredDocs.email,
+                age: filteredDocs.age,
+                question1: filteredDocs.question1,
+                question2: filteredDocs.question2,
+                question3: filteredDocs.question3,
+                accountType: "ADMIN"
+            }
+        }
+    );
+
+    // renders the admin page again with the updated status of what happened 
+    client.close();
+    res.render('admin', {
+        title: "ADMIN PAGE",
+        status: "User: " + filteredDocs.username + ", changed to ADMIN account",
+        admin: req.session.user.username
+    })
+}
+
+//gets the username and deletes a user with that username
+exports.deleteUser = async (req, res) =>{
+    await client.connect();
+    await collection.deleteOne({'username': req.body.deleteUsername})
+    client.close();
+
+    // renders the admin page again with the updated status of what happened 
+    res.render('admin', {
+        title: "ADMIN PAGE",
+        status: "User: " + req.body.deleteUsername + ", deleted",
+        admin: req.session.user.username
+    })
 }

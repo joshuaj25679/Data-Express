@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    form(id='form' method='Post' action='/addAdmin' )
+        | Username of User:
+        input(type="text" name='regularUser' class='textInput') 
+        input(type="submit" value='Change to ADMIN')
+    br
+    br
+    form(id='form' method='Post' action='/delete' )
+        | Username to Delete: 
+        input(type="text" name='deleteUsername' class='textInput') 
+        input(type="submit" value='Delete User')
+
+    p #{status}
+
+    br
+    form(action=`/details/${admin}`, method='get')
+        input(type="submit", value="Back", class='button')
