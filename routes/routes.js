@@ -211,16 +211,21 @@ exports.details = async (req, res) => {
     });
 }
 
+//loads in admin page 
 exports.admin = (req, res) => {
     res.render('admin', {
-        title: "ADMIN PAGE"
+        title: "ADMIN PAGE",
+        status: "",
+        admin: req.session.user.username
     })
 }
 
+//finds the user by username to update to admin
 exports.addAdmin = async (req, res) => {
     await client.connect();
     const filteredDocs = await collection.findOne({ 'username': req.body.regularUser});
 
+    //updates the user to set the accountType to ADMIN
     const updateResult = await collection.updateOne(
         { 'username': req.body.regularUser},
         {
@@ -237,6 +242,25 @@ exports.addAdmin = async (req, res) => {
         }
     );
 
+    // renders the admin page again with the updated status of what happened 
+    client.close();
+    res.render('admin', {
+        title: "ADMIN PAGE",
+        status: "User: " + filteredDocs.username + ", changed to ADMIN account",
+        admin: req.session.user.username
+    })
+}
+
+//gets the username and deletes a user with that username
+exports.deleteUser = async (req, res) =>{
+    await client.connect();
+    await collection.deleteOne({'username': req.body.deleteUsername})
     client.close();
 
+    // renders the admin page again with the updated status of what happened 
+    res.render('admin', {
+        title: "ADMIN PAGE",
+        status: "User: " + req.body.deleteUsername + ", deleted",
+        admin: req.session.user.username
+    })
 }

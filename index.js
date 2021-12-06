@@ -52,6 +52,7 @@ app.get('/details/:username', checkAuth, routes.details);
 app.get('/logout', checkAuth, routes.logout);
 app.get('/admin', checkAdminAuth, routes.admin);
 app.post('/addAdmin', checkAdminAuth, urlencodedParser, routes.addAdmin);
+app.post('/delete', checkAdminAuth, urlencodedParser, routes.deleteUser);
 
 
 app.listen(3000);
