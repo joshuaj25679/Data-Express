@@ -107,16 +107,24 @@ fetchData()
 
     let calzone = dbData[0].calzoneAmount;
     let ravioli = dbData[0].ravioliAmount;
+    
+    let freeman = dbData[1].freemanAmount;
+    let jones = dbData[1].jonesAmount;
+    let carrey = dbData[1].carreyAmount;
+    let reynolds = dbData[1].reynoldsAmount;
 
+    let speed = dbData[2].speedAmount;
+    let flight = dbData[2].flightAmount;
+    let strength = dbData[2].strengthAmount;
+    let telekinesis = dbData[2].telekinesisAmount;
+
+    const loop = () =>{
     drawQ1Res(calzone, ravioli);
+    drawQ2Res(freeman, jones, carrey, reynolds);
+    drawQ3Res(speed, flight, strength, telekinesis);
+    }
 
-const loop = () =>{
-    drawQ1Res(1,4);
-    drawQ2Res(2,5,3,8);
-    drawQ3Res(3,4,5,6);
-    
-    
-}
-labelDraw();
-loop();
-setInterval(loop, 3000);
+    labelDraw();
+    loop();
+    setInterval(loop, 3000);
+})
