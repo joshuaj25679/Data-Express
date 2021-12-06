@@ -241,6 +241,7 @@ exports.api = async (req, res) => {
     res.json(data);
     console.log(data[0].calzoneAmount);
     console.log(data[0].ravioliAmount);
+}
 //loads in admin page 
 exports.admin = (req, res) => {
     res.render('admin', {
