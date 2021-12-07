@@ -19,10 +19,8 @@ exports.login = (req, res) => {
 
 //Login Method
 exports.loginUser = async (req, res) => {
-    console.log(req.body.username);
     await client.connect();
     const filteredDocs = await collection.findOne({ 'username': req.body.username });
-    console.log(filteredDocs);
     client.close();
     if(filteredDocs != null){
         if (req.body.username == filteredDocs.username && bcrypt.compareSync(req.body.password, filteredDocs.password)) {
@@ -126,10 +124,8 @@ exports.createPerson = async (req, res) => {
         question3: ans3,
         accountType: 'USER'
     };
-    console.log(person);
     const insertResult = await collection.insertOne(person);
     client.close();
-    console.log(req.body.name + ' added');
     //Redirect to Details Page after Registration
     res.redirect('/');
 }
@@ -152,7 +148,6 @@ exports.editPerson = async (req, res) => {
     let ans2 = req.body.ans2;
     let ans3 = req.body.ans3;
     await client.connect();
-    console.log(ans1, ans2, ans3);
     if (ans1 == undefined || ans2 == undefined || ans3 == undefined) {
         res.redirect('/edit/' + req.session.user.username);
     }
@@ -191,17 +186,14 @@ exports.editPerson = async (req, res) => {
         username: username,
         accountType: typeDocs.accountType
     }
-    console.log('the new username is: ' + username)
     res.redirect('/loggedIn');
     client.close();
 };
 
 //Display User Details
 exports.details = async (req, res) => {
-    console.log(req.session.user.username);
     await client.connect();
     const filteredDocs = await collection.findOne({ 'username': req.session.user.username});
-    console.log("Document: " + filteredDocs);
     client.close();
     res.render('details', {
         title: filteredDocs.username + "'s Details",
@@ -239,8 +231,6 @@ exports.api = async (req, res) => {
     ]
     client.close();
     res.json(data);
-    console.log(data[0].calzoneAmount);
-    console.log(data[0].ravioliAmount);
 }
 //loads in admin page 
 exports.admin = (req, res) => {

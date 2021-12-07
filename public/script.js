@@ -1,11 +1,8 @@
-
 let fetchData = async () =>{
     const response = await fetch('http://localhost:3000/api');
     const data = await response.json();
     return data;
 }
-
-
 
 const q1canvas = document.getElementById('q1Canvas');
 const q1ctx = q1canvas.getContext('2d');
